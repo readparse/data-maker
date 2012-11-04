@@ -1,4 +1,25 @@
+#################################################################
 class Data::Maker
+	def initialize
+	end
+	attr_accessor :record_count
+	attr_accessor :fields
+	attr_accessor :delimiter
+	def each_record
+		record = Data::Maker::Record.new(self)
+		yield record
+	end
+end
+
+#################################################################
+class Data::Maker::Record
+	def initialize(maker)
+		@maker = maker
+	end
+	attr_accessor :maker
+	def delimited
+		puts "delimiter is \"" + self.maker.delimiter + "\""
+	end
 end
 
 #################################################################
