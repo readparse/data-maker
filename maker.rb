@@ -16,7 +16,7 @@ fullname = Data::Maker::Field::Join.new([
 company =	Data::Maker::Field::Company.new
 
 ssn = Data::Maker::Field::SSN.new
-phone = Data::Maker::Field::Format.new( '(\d\d\d)\d\d\d-\d\d\d\d' )
+phone = Data::Maker::Field::Phone.new
 color = Data::Maker::Field::Format.new( '#\X\X\X')
 password = Data::Maker::Field::Str.new( 8 )
 

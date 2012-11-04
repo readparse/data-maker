@@ -8,6 +8,16 @@ class Data::Maker::Field
 end
 
 #################################################################
+class Data::Maker::Field::Set < Data::Maker::Field
+	def initialize(set)
+		@set = set
+	end
+	def generate_value
+		return @set[rand @set.size]
+	end
+end
+
+#################################################################
 class Data::Maker::Field::Format
 
 	def initialize(format='')
@@ -69,6 +79,31 @@ class Data::Maker::Field::Str < Data::Maker::Field
 	end
 end
 
+#################################################################
+class Data::Maker::Field::Phone < Data::Maker::Field
+	def initialize(delimiter='-')
+		@delimiter = delimiter
+	end
+	def generate_value
+		area_code = self.area_code
+		exchange = self.area_code # same rules as area code
+		extension = self.extension
+		return [area_code, exchange, extension].join(@delimiter)
+	end
+	def area_code
+		first = Data::Maker::Field::Set.new( (2..9).to_a ).generate_value
+		second = Data::Maker::Field::Set.new( (0..9).to_a ).generate_value
+		third = Data::Maker::Field::Set.new( (0..9).to_a ).generate_value
+		return [first,second,third].join('')
+	end
+	def extension
+		out = Array.new
+		(1..4).to_a.each {
+			out.push(Data::Maker::Field::Set.new( (0..9).to_a ).generate_value)
+		}
+		return out.join('')
+	end
+end
 #################################################################
 class Data::Maker::Field::Join < Data::Maker::Field
 	def initialize(fields=[], delimiter=' ')
