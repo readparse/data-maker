@@ -105,6 +105,7 @@ class Data::Maker::Field::Phone < Data::Maker::Field
 	def initialize(delimiter='-')
 		@delimiter = delimiter
 	end
+	attr_accessor :delimiter
 	def generate_value
 		area_code = self.area_code
 		exchange = self.area_code # same rules as area code
